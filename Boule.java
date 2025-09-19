@@ -75,4 +75,5 @@ class Boule {
     motif.setColor(couleur);
     motif.fillOval(x-rayon,y-rayon,rayon*2,rayon*2);
   }
+  
 }

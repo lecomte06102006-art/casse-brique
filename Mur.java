@@ -18,6 +18,12 @@ class Mur {
           case 2 :
             mur[l][c]=new BriqueBouleRapide();
             break;
+          case 3 :
+            mur[l][c]=new BriqueBarrePetite();
+            break;
+          case 4 :
+            mur[l][c]=new BriqueDoubleBoule();
+            break;
           default :
             mur[l][c]=new Brique();
         }
@@ -76,6 +82,10 @@ class Mur {
   public int getHauteurBrique() {
     return mur[0][0].getHauteur();
   }
+
+  
+
+  
 
   public void dessine(Graphics2D support) {
     // Dessin du mur de brique

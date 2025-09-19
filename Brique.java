@@ -8,6 +8,7 @@ class Brique {
   private int x, y, largeur, hauteur;
   protected Color couleur;
   protected boolean detruite;
+  
 
   public Brique() {
     largeur=17;
@@ -15,7 +16,7 @@ class Brique {
     couleur=Color.green;
     detruite=false;
   }
-
+  
   public int choc() {
     // Si la brique n'est pas déjà détruite
     if (!detruite) {
@@ -40,6 +41,9 @@ public int getHauteur() {
 public int getLargeur() {
   return largeur;
 }
+
+
+
 
 public void dessine(Graphics2D motif){
   // Dessin de la brique
