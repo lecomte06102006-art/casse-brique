@@ -30,6 +30,8 @@ class EspaceJeu extends JPanel implements Runnable, MouseListener,
   private Barre barre;
   private Boule boule;
   private Mur mur;
+  private int nbVie=3;
+  private String vieDit;
 
 
 
@@ -74,9 +76,26 @@ class EspaceJeu extends JPanel implements Runnable, MouseListener,
     action = new Thread(this);
     action.start();
   }
+  
+  public void initialiseNiveauAvecLayout(int[][] layout) {
+	    fini = true;
+	    if (action != null) {
+	        while (action.isAlive());
+	    }
+	    if (mur == null) {
+	        mur = new Mur();
+	    }
+	    mur.construit(layout);
+	    phase = ATTEND;
+	    delai = DELAI;
+	    action = new Thread(this);
+	    action.start();
+	}
+
 
   // Traitement central exécuté avec une périodicité précise
   public void run() {
+	this.nbVie=3;
     fini=false;
     while (!fini) {
       // Selon la phase du jeu ...
@@ -125,7 +144,13 @@ class EspaceJeu extends JPanel implements Runnable, MouseListener,
                 // Si la boule touche le fond ...
                 if (boule.getY() > 310 + barre.getHauteur() - boule.getRayon()) {
                   // Loupé !!
-                  phase = SORT;                
+                	nbVie-=1;                	
+                	if(nbVie>0) {
+                		boule.place(barre.getX(), barre.getY() - boule.getRayon());
+                	}
+                	else {
+                        phase = SORT;        
+                	}
 				}
               }
 
@@ -222,10 +247,10 @@ class EspaceJeu extends JPanel implements Runnable, MouseListener,
           break;
 
         case SORT :
-          JOptionPane.showMessageDialog(this,"C'est perdu !","Casse briques",
-                        JOptionPane.INFORMATION_MESSAGE);
-          fini=true;
-          break;
+        	JOptionPane.showMessageDialog(this,"C'est perdu !","Casse briques",
+        			JOptionPane.INFORMATION_MESSAGE);
+	        fini=true;
+	        break;
 
         case GAGNE :
           JOptionPane.showMessageDialog(this,"Bravo, vous avez gagné !",
@@ -301,6 +326,11 @@ class EspaceJeu extends JPanel implements Runnable, MouseListener,
     // Au tout départ le mur n'existe pas
     if(mur!=null)
       mur.dessine(comp2D);
+    //affichage de la vie 
+    comp2D.setColor(Color.BLACK);
+    comp2D.setFont(new Font("Arial", Font.BOLD, 16));
+    comp2D.drawString("Vies : " + nbVie, 10, 350);
+	
   }
 
   // Méthodes de l'interface MouseMotionListener

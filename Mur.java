@@ -18,6 +18,9 @@ class Mur {
           case 2 :
             mur[l][c]=new BriqueBouleRapide();
             break;
+          case 3 :
+              mur[l][c]=new Brique3coup();
+              break;
           default :
             mur[l][c]=new Brique();
         }
@@ -26,6 +29,53 @@ class Mur {
       }
     }
     nbBriques=200;
+  }
+  
+  
+  public void construit(int[][] layout) {
+      for (int l = 0; l < 10; l++) {
+          for (int c = 0; c < 20; c++) {
+              int code = 0;
+              if (layout != null && l < layout.length && c < layout[l].length) {
+                  code = layout[l][c];
+              }
+
+              switch (code) {
+                  case 0:
+                      mur[l][c] = new Brique();
+                      mur[l][c].detruite = true; // vide
+                      break;
+                  case 2:
+                      mur[l][c] = new BriqueBouleRapide();;
+                      break;
+                  case 3:
+                      mur[l][c] = new BriqueRetourNorme();
+                      break;
+                  case 4:
+                      mur[l][c] = new Brique3coup();
+                      break;
+                  default:
+                      mur[l][c] = new Brique();
+                      break;
+              }
+              mur[l][c].positionne(
+                  c * (mur[l][c].getLargeur() + 1),
+                  l * (mur[l][c].getHauteur() + 1)
+              );
+          }
+      }
+      recalculerNbBriques();
+  }
+  
+  private void recalculerNbBriques() {
+      nbBriques = 0;
+      for (int l = 0; l < 10; l++) {
+          for (int c = 0; c < 20; c++) {
+              if (mur[l][c] != null && !mur[l][c].isDetruite()) {
+                  nbBriques++;
+              }
+          }
+      }
   }
 
   public boolean percute(int l, int c) {

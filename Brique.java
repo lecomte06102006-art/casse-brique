@@ -7,6 +7,7 @@ class Brique {
   private final int SIMPLE=0;
   private int x, y, largeur, hauteur;
   protected Color couleur;
+  protected int coupRestant;
   protected boolean detruite;
 
   public Brique() {
@@ -18,7 +19,13 @@ class Brique {
 
   public int choc() {
     // Si la brique n'est pas déjà détruite
-    if (!detruite) {
+	if (coupRestant==2) {
+		couleur=Color.gray;
+	}
+	if (coupRestant==1) {
+		couleur=Color.lightGray;
+	}
+    if (!detruite && (coupRestant<1)) {
       detruite=true;
     }
     return SIMPLE;
