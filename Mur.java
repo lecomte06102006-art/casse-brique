@@ -21,6 +21,13 @@ class Mur {
           case 3 :
               mur[l][c]=new Brique3coup();
               break;
+          case 4 :
+            mur[l][c]=new BriqueBarrePetite();
+            break;
+          case 5 :
+            mur[l][c]=new BriqueDoubleBoule();
+            break;
+
           default :
             mur[l][c]=new Brique();
         }
@@ -53,6 +60,12 @@ class Mur {
                       break;
                   case 4:
                       mur[l][c] = new Brique3coup();
+                      break;
+                  case 5:
+                	  mur[l][c] = new BriqueBarrePetite();
+                      break;
+                  case 6:
+                	  mur[l][c] = new BriqueDoubleBoule();
                       break;
                   default:
                       mur[l][c] = new Brique();
