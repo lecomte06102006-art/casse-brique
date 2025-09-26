@@ -1,14 +1,14 @@
 // package cassebriques;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import javax.swing.*;
 
 public class EditeurNiveau extends JPanel implements MouseListener {
     private int[][] layout;
     private final int LIGNES = 10, COLS = 20;
-    private final int TAILLE = 20; // taille visuelle des cases
+    private final int TAILLE = 20;
 
     public EditeurNiveau() {
         layout = new int[LIGNES][COLS];
@@ -33,6 +33,8 @@ public class EditeurNiveau extends JPanel implements MouseListener {
                     case 2: g.setColor(Color.yellow); break;
                     case 3: g.setColor(Color.pink); break;
                     case 4: g.setColor(Color.darkGray);break;
+                    case 5: g.setColor(Color.blue);break;
+                    case 6: g.setColor(Color.red);break;
                     default: g.setColor(Color.white); break;
                 }
                 g.fillRect(j * TAILLE, i * TAILLE, TAILLE, TAILLE);
@@ -43,7 +45,7 @@ public class EditeurNiveau extends JPanel implements MouseListener {
 
         // légende
         g.setColor(Color.black);
-        g.drawString("Cliquez sur une case pour changer son type (0→1→2→3→4→0)", 10, LIGNES * TAILLE + 20);
+        g.drawString("Cliquez sur une case pour changer son type (0→1→2→3→4→5→6→0)", 10, LIGNES * TAILLE + 20);
     }
 
     @Override
@@ -51,12 +53,11 @@ public class EditeurNiveau extends JPanel implements MouseListener {
         int col = e.getX() / TAILLE;
         int lig = e.getY() / TAILLE;
         if (lig < LIGNES && col < COLS) {
-            layout[lig][col] = (layout[lig][col] + 1) % 5; // cycle 0-1-2-3
+            layout[lig][col] = (layout[lig][col] + 1) % 7;
             repaint();
         }
     }
 
-    // autres méthodes inutilisées
     public void mousePressed(MouseEvent e) {}
     public void mouseReleased(MouseEvent e) {}
     public void mouseEntered(MouseEvent e) {}
@@ -75,7 +76,6 @@ public class EditeurNiveau extends JPanel implements MouseListener {
         }
     }
 
-    // Chargement simple
     public void charger(File f) throws IOException {
         try (BufferedReader r = new BufferedReader(new FileReader(f))) {
             for (int i = 0; i < LIGNES; i++) {
