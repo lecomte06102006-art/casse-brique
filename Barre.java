@@ -48,4 +48,12 @@ class Barre {
     motif.setColor(couleur);
     motif.fillRect(x-miLargeur,y,miLargeur*2,hauteur);
   }
+
+  public void reduireLargeur() {
+    miLargeur = miLargeur / 2;
+  }
+
+  public void resetLargeur() {
+    miLargeur = 25; 
+  }
  }
